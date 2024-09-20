@@ -12,6 +12,7 @@ import java.util.Set;
 public class ImageMetadataExtractor {
 
     private final Set<String> selectedTags;
+    private final Set<String> acceptedFileTypes;
 
     public ImageMetadataExtractor() {
         this.selectedTags = new HashSet<>();
@@ -31,20 +32,27 @@ public class ImageMetadataExtractor {
         selectedTags.add("Detected File Type Long Name");
         selectedTags.add("File Name");
         selectedTags.add("File Size");
+
+        this.acceptedFileTypes = new HashSet<>();
+
+        acceptedFileTypes.add("jpg");
+        acceptedFileTypes.add("jpeg");
+        acceptedFileTypes.add("png");
     }
 
-    public static void main(String[] args) {
+    public void getImagesMetadata(String selectedDirectoryWithImages) {
         ImageMetadataExtractor extractor = new ImageMetadataExtractor();
 
         // Specify the directory path
         String workingDirectory = System.getProperty("user.dir");
         String imageDirectory = "/Backend/input_images";
-        File directory = new File(workingDirectory + imageDirectory);
+        File directoryWithImages = new File(workingDirectory + imageDirectory);
+//        File directoryWithImages = new File(selectedDirectoryWithImages); // TODO: use the selected directory by the user in the future
 
         // Check if it's a directory
-        if (directory.isDirectory()) {
+        if (directoryWithImages.isDirectory()) {
             // Get all files in the directory
-            File[] files = directory.listFiles();
+            File[] files = directoryWithImages.listFiles();
 
             if (files != null) {
                 // Iterate through each file in the directory
@@ -76,10 +84,9 @@ public class ImageMetadataExtractor {
     }
 
     // Helper method to check if the file is an image
-    private static boolean isImageFile(File file) {
-        String[] imageExtensions = { "jpg", "jpeg", "png" };
+    private boolean isImageFile(File file) {
         String fileName = file.getName().toLowerCase();
-        for (String ext : imageExtensions) {
+        for (String ext : acceptedFileTypes) {
             if (fileName.endsWith(ext)) {
                 return true;
             }
