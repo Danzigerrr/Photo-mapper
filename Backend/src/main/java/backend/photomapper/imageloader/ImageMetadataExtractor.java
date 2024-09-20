@@ -1,12 +1,16 @@
 package backend.photomapper.imageloader;
 
+import backend.photomapper.model.ImageInfo;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class ImageMetadataExtractor {
@@ -40,14 +44,11 @@ public class ImageMetadataExtractor {
         acceptedFileTypes.add("png");
     }
 
-    public void getImagesMetadata(String selectedDirectoryWithImages) {
-        ImageMetadataExtractor extractor = new ImageMetadataExtractor();
+    public ArrayList<ImageInfo> getImagesMetadata(String selectedDirectoryWithImages) {
+        ArrayList<ImageInfo> images = new ArrayList<>();
 
         // Specify the directory path
-        String workingDirectory = System.getProperty("user.dir");
-        String imageDirectory = "/Backend/input_images";
-        File directoryWithImages = new File(workingDirectory + imageDirectory);
-//        File directoryWithImages = new File(selectedDirectoryWithImages); // TODO: use the selected directory by the user in the future
+        File directoryWithImages = new File(selectedDirectoryWithImages);
 
         // Check if it's a directory
         if (directoryWithImages.isDirectory()) {
@@ -61,19 +62,41 @@ public class ImageMetadataExtractor {
                         try {
                             // Read metadata from the image file
                             Metadata metadata = ImageMetadataReader.readMetadata(file);
-                            System.out.println("Metadata for file: " + file.getName());
+                            Map<String, String> tagMap = new HashMap<>();
 
                             // Iterate through metadata directories
                             for (Directory directoryMeta : metadata.getDirectories()) {
                                 // Iterate through each tag in the directory
                                 for (Tag tag : directoryMeta.getTags()) {
-                                    // Only print if the tag name is in the selectedTags set
-                                    if (extractor.selectedTags.contains(tag.getTagName())) {
-                                        System.out.println(tag.getTagName() + ": " + tag.getDescription());
+                                    // Only add if the tag name is in the selectedTags set
+                                    if (selectedTags.contains(tag.getTagName())) {
+                                        tagMap.put(tag.getTagName(), tag.getDescription());
                                     }
                                 }
                             }
-                            System.out.println(); // Newline between different files
+
+                            // Build the ImageInfo object using the extracted metadata
+                            ImageInfo imageInfo = new ImageInfo(
+                                    parseInt(tagMap.get("Image Width")),
+                                    parseInt(tagMap.get("Image Height")),
+                                    tagMap.get("Model"),
+                                    tagMap.get("Date/Time Original"),
+                                    tagMap.get("Time Zone Original"),
+                                    tagMap.get("GPS Latitude Ref"),
+                                    tagMap.get("GPS Latitude"),
+                                    tagMap.get("GPS Longitude Ref"),
+                                    tagMap.get("GPS Longitude"),
+                                    tagMap.get("GPS Altitude Ref"),
+                                    tagMap.get("GPS Altitude"),
+                                    tagMap.get("Detected File Type Name"),
+                                    tagMap.get("Detected File Type Long Name"),
+                                    file.getName(),
+                                    file.length()
+                            );
+
+                            // Add the ImageInfo object to the list
+                            images.add(imageInfo);
+
                         } catch (Exception e) {
                             System.err.println("Error reading metadata for " + file.getName() + ": " + e.getMessage());
                         }
@@ -81,16 +104,25 @@ public class ImageMetadataExtractor {
                 }
             }
         }
+
+        return images;
     }
 
-    // Helper method to check if the file is an image
+    // Helper method to check if the file is an accepted image file
     private boolean isImageFile(File file) {
         String fileName = file.getName().toLowerCase();
-        for (String ext : acceptedFileTypes) {
-            if (fileName.endsWith(ext)) {
-                return true;
+        return acceptedFileTypes.stream().anyMatch(fileName::endsWith);
+    }
+
+    // Helper method to safely parse integers from strings (handles null and empty strings)
+    private int parseInt(String value) {
+        if (value != null && !value.isEmpty()) {
+            try {
+                return Integer.parseInt(value.replaceAll("[^\\d]", ""));
+            } catch (NumberFormatException e) {
+                return 0; // Return 0 if parsing fails
             }
         }
-        return false;
+        return 0;
     }
 }
