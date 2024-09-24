@@ -13,7 +13,7 @@ public class ImageInfoService {
     private final ImageInfoRepository imageInfoRepository;
     private final ImageMetadataExtractor imageMetadataExtractor;
 
-    public ImageInfoService(ImageInfoRepository imageInfoRepository, ImageMetadataExtractor imageMetadataExtractor,) {
+    public ImageInfoService(ImageInfoRepository imageInfoRepository, ImageMetadataExtractor imageMetadataExtractor) {
         this.imageInfoRepository = imageInfoRepository;
         this.imageMetadataExtractor = imageMetadataExtractor;
     }
