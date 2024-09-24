@@ -75,24 +75,23 @@ public class ImageMetadataExtractor {
                                 }
                             }
 
-                            // Build the ImageInfo object using the extracted metadata
-                            ImageInfo imageInfo = new ImageInfo(
-                                    parseInt(tagMap.get("Image Width")),
-                                    parseInt(tagMap.get("Image Height")),
-                                    tagMap.get("Model"),
-                                    tagMap.get("Date/Time Original"),
-                                    tagMap.get("Time Zone Original"),
-                                    tagMap.get("GPS Latitude Ref"),
-                                    tagMap.get("GPS Latitude"),
-                                    tagMap.get("GPS Longitude Ref"),
-                                    tagMap.get("GPS Longitude"),
-                                    tagMap.get("GPS Altitude Ref"),
-                                    tagMap.get("GPS Altitude"),
-                                    tagMap.get("Detected File Type Name"),
-                                    tagMap.get("Detected File Type Long Name"),
-                                    file.getName(),
-                                    file.length()
-                            );
+                            ImageInfo imageInfo = ImageInfo.builder()
+                                    .imageWidth(Integer.parseInt(tagMap.get("Image Width")))
+                                    .imageHeight(Integer.parseInt(tagMap.get("Image Height")))
+                                    .model(tagMap.get("Model"))
+                                    .dateTimeOriginal(tagMap.get("Date/Time Original"))
+                                    .timeZoneOriginal(tagMap.get("Time Zone Original"))
+                                    .gpsLatitudeRef(tagMap.get("GPS Latitude Ref"))
+                                    .gpsLatitude(tagMap.get("GPS Latitude"))
+                                    .gpsLongitudeRef(tagMap.get("GPS Longitude Ref"))
+                                    .gpsLongitude(tagMap.get("GPS Longitude"))
+                                    .gpsAltitudeRef(tagMap.get("GPS Altitude Ref"))
+                                    .gpsAltitude(tagMap.get("GPS Altitude"))
+                                    .detectedFileTypeName(tagMap.get("Detected File Type Name"))
+                                    .detectedFileTypeLongName(tagMap.get("Detected File Type Long Name"))
+                                    .fileName(file.getName())
+                                    .fileSize(file.length())
+                                    .build();
 
                             // Add the ImageInfo object to the list
                             images.add(imageInfo);

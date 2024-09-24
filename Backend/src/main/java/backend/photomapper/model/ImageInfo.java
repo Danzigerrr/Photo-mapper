@@ -1,9 +1,18 @@
 package backend.photomapper.model;
 
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Data
+@Builder
+@AllArgsConstructor
+@Entity
+@Table(name = "images")
+@NoArgsConstructor(force = true)
 public class ImageInfo {
+
+    @Id
+    private final String fileName;
 
     private final int imageWidth;
     private final int imageHeight;
@@ -18,6 +27,5 @@ public class ImageInfo {
     private final String gpsAltitude;
     private final String detectedFileTypeName;
     private final String detectedFileTypeLongName;
-    private final String fileName;
     private final long fileSize;
 }
