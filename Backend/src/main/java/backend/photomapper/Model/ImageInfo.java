@@ -1,4 +1,4 @@
-package backend.photomapper.model;
+package backend.photomapper.Model;
 
 import jakarta.persistence.*;
 import lombok.*;

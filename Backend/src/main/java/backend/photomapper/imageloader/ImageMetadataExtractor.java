@@ -1,6 +1,6 @@
 package backend.photomapper.imageloader;
 
-import backend.photomapper.model.ImageInfo;
+import backend.photomapper.Model.ImageInfo;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
