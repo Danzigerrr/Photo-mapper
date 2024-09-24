@@ -1,4 +1,4 @@
-package backend.photomapper.imageloader;
+package backend.photomapper.Service.utils;
 
 import backend.photomapper.Model.ImageInfo;
 import com.drew.imaging.ImageMetadataReader;
@@ -113,17 +113,5 @@ public class ImageMetadataExtractor {
     private boolean isImageFile(File file) {
         String fileName = file.getName().toLowerCase();
         return acceptedFileTypes.stream().anyMatch(fileName::endsWith);
-    }
-
-    // Helper method to safely parse integers from strings (handles null and empty strings)
-    private int parseInt(String value) {
-        if (value != null && !value.isEmpty()) {
-            try {
-                return Integer.parseInt(value.replaceAll("[^\\d]", ""));
-            } catch (NumberFormatException e) {
-                return 0; // Return 0 if parsing fails
-            }
-        }
-        return 0;
     }
 }

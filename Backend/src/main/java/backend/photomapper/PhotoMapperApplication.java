@@ -1,6 +1,6 @@
 package backend.photomapper;
 
-import backend.photomapper.imageloader.ImageMetadataExtractor;
+import backend.photomapper.Service.utils.ImageMetadataExtractor;
 import backend.photomapper.Model.ImageInfo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

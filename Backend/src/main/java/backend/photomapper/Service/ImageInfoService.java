@@ -2,7 +2,7 @@ package backend.photomapper.Service;
 
 import backend.photomapper.Model.ImageInfo;
 import backend.photomapper.Repository.ImageInfoRepository;
-import backend.photomapper.imageloader.ImageMetadataExtractor;
+import backend.photomapper.Service.utils.ImageMetadataExtractor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;

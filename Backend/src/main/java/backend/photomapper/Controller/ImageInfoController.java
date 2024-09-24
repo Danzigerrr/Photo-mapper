@@ -30,13 +30,13 @@ public class ImageInfoController {
 
     @GetMapping("{id}")
     public ResponseEntity<Optional<ImageInfo>> getImageInfoById(@PathVariable("id") String filename){
-        return new ResponseEntity<Optional<ImageInfo>>(imageInfoService.getImageInfoById(filename),HttpStatus.OK);
+        return new ResponseEntity<>(imageInfoService.getImageInfoById(filename),HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteImageInfo(@PathVariable("id") String filename){
         imageInfoService.deleteImageInfo(filename);
-        return new ResponseEntity<String>("ImageInfo deleted successfully!.", HttpStatus.OK);
+        return new ResponseEntity<>("ImageInfo deleted successfully!.", HttpStatus.OK);
 
     }
 }
