@@ -1,6 +1,7 @@
 package backend.photomapper.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import backend.photomapper.Model.ImageInfo;
+import backend.photomapper.Service.ImageInfoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +12,15 @@ import java.util.Optional;
 @RequestMapping("/api/loadimages")
 public class ImageInfoController {
     
-    private ImageInfoService imageInfoService;
+    private final ImageInfoService imageInfoService;
 
     public ImageInfoController(ImageInfoService imageInfoService) {
         this.imageInfoService = imageInfoService;
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ImageInfo createImageInfo(@RequestBody ImageInfo imageInfo){
-        return imageInfoService.saveImageInfo(imageInfo);
+    @PostMapping("/load")
+    public List<ImageInfo> loadImages(@RequestParam String directoryPath) {
+        return imageInfoService.loadImages(directoryPath);
     }
 
     @GetMapping
@@ -29,19 +29,13 @@ public class ImageInfoController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<ImageInfo>> getImageInfoById(@PathVariable("id") long id){
-        return new ResponseEntity<Optional<ImageInfo>>(imageInfoService.getImageInfoById(id),HttpStatus.OK);
-    }
-
-    @PutMapping("{id}")
-    public ResponseEntity<ImageInfo> updateImageInfo(@PathVariable("id") long id,
-                                                   @RequestBody ImageInfo imageInfo){
-        return new ResponseEntity<ImageInfo>(imageInfoService.updateImageInfo(imageInfo,id),HttpStatus.OK);
+    public ResponseEntity<Optional<ImageInfo>> getImageInfoById(@PathVariable("id") String filename){
+        return new ResponseEntity<Optional<ImageInfo>>(imageInfoService.getImageInfoById(filename),HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteImageInfo(@PathVariable("id") long id){
-        imageInfoService.deleteImageInfo(id);
+    public ResponseEntity<String> deleteImageInfo(@PathVariable("id") String filename){
+        imageInfoService.deleteImageInfo(filename);
         return new ResponseEntity<String>("ImageInfo deleted successfully!.", HttpStatus.OK);
 
     }

@@ -2,9 +2,9 @@ package backend.photomapper.Repository;
 
 import backend.photomapper.Model.ImageInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ImageInfoRepository extends JpaRepository<ImageInfo, String> {
-    Optional<ImageInfo> findByFileName(String filename);
 }
 
