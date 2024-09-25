@@ -78,8 +78,8 @@ public class ImageMetadataExtractor {
                             }
 
                             ImageInfo imageInfo = ImageInfo.builder()
-                                    .imageWidth(Integer.parseInt(tagMap.get("Image Width")))
-                                    .imageHeight(Integer.parseInt(tagMap.get("Image Height")))
+                                    .imageWidth(Integer.parseInt(tagMap.get("Image Width").replaceAll("[^0-9]", "")))
+                                    .imageHeight(Integer.parseInt(tagMap.get("Image Height").replaceAll("[^0-9]", "")))
                                     .model(tagMap.get("Model"))
                                     .dateTimeOriginal(tagMap.get("Date/Time Original"))
                                     .timeZoneOriginal(tagMap.get("Time Zone Original"))

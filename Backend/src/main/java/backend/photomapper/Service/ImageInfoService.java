@@ -4,35 +4,50 @@ import backend.photomapper.Model.ImageInfo;
 import backend.photomapper.Repository.ImageInfoRepository;
 import backend.photomapper.Service.utils.ImageMetadataExtractor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ImageInfoService {
 
-    private final ImageInfoRepository imageInfoRepository;
     private final ImageMetadataExtractor imageMetadataExtractor;
+    private final ImageInfoRepository imageInfoRepository;
 
-    public ImageInfoService(ImageInfoRepository imageInfoRepository, ImageMetadataExtractor imageMetadataExtractor) {
-        this.imageInfoRepository = imageInfoRepository;
+    public ImageInfoService(ImageMetadataExtractor imageMetadataExtractor, ImageInfoRepository imageInfoRepository) {
         this.imageMetadataExtractor = imageMetadataExtractor;
+        this.imageInfoRepository = imageInfoRepository;
     }
 
-    public ImageInfo saveImageInfo(ImageInfo imageInfo) {
+    // Process uploaded files from the frontend
+    public List<ImageInfo> processUploadedFiles(MultipartFile[] files) throws IOException {
+        List<ImageInfo> imageInfos = new ArrayList<>();
 
-        Optional<ImageInfo> savedImageInfo = imageInfoRepository.findById(imageInfo.getFileName());
-        if(savedImageInfo.isPresent()){
-            throw new RuntimeException("ImageInfo already exist with given filename:" + imageInfo.getFileName());
+        for (MultipartFile file : files) {
+            File convFile = new File(System.getProperty("java.io.tmpdir") + "/" + file.getOriginalFilename());
+            file.transferTo(convFile);
+
+            List<ImageInfo> extractedImages = imageMetadataExtractor.getImagesMetadata(convFile.getParent());
+            imageInfos.addAll(extractedImages);
+
+            imageInfoRepository.saveAll(extractedImages);
         }
-        return imageInfoRepository.save(imageInfo);
+
+        return imageInfos;
     }
 
+    // Load images from a directory
     public List<ImageInfo> loadImages(String directoryPath) {
-        List<ImageInfo> images = imageMetadataExtractor.getImagesMetadata(directoryPath);
+        List<ImageInfo> imageInfos = imageMetadataExtractor.getImagesMetadata(directoryPath);
 
-        imageInfoRepository.saveAll(images);
+        // Optionally save to the database
+        imageInfoRepository.saveAll(imageInfos);
 
-        return images;
+        return imageInfos;
     }
 
     public List<ImageInfo> getAllImageInfos() {

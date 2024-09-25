@@ -21,12 +21,12 @@ public class PhotoMapperApplication {
 		ImageMetadataExtractor imageMetadataExtractor = new ImageMetadataExtractor();
 
 		String workingDirectory = System.getProperty("user.dir");
-		String imageDirectory = "/Backend/input_images";
-
+		String imageDirectory = "\\Backend\\input_images";
+		System.out.println(workingDirectory + imageDirectory);
 		ArrayList<ImageInfo> images;
 
 		images = imageMetadataExtractor.getImagesMetadata(workingDirectory + imageDirectory);
 
-		System.out.println(images.getFirst());
+		System.out.println(images.size());
 	}
 }
