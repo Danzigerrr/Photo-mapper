@@ -18,6 +18,15 @@ public class ImageInfoService {
         this.imageMetadataExtractor = imageMetadataExtractor;
     }
 
+    public ImageInfo saveImageInfo(ImageInfo imageInfo) {
+
+        Optional<ImageInfo> savedImageInfo = imageInfoRepository.findById(imageInfo.getFileName());
+        if(savedImageInfo.isPresent()){
+            throw new RuntimeException("ImageInfo already exist with given filename:" + imageInfo.getFileName());
+        }
+        return imageInfoRepository.save(imageInfo);
+    }
+
     public List<ImageInfo> loadImages(String directoryPath) {
         List<ImageInfo> images = imageMetadataExtractor.getImagesMetadata(directoryPath);
 

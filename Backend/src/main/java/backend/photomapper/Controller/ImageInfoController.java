@@ -18,6 +18,12 @@ public class ImageInfoController {
         this.imageInfoService = imageInfoService;
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ImageInfo createImageInfo(@RequestBody ImageInfo imageInfo){
+        return imageInfoService.saveImageInfo(imageInfo);
+    }
+    
     @PostMapping("/load")
     public List<ImageInfo> loadImages(@RequestParam String directoryPath) {
         return imageInfoService.loadImages(directoryPath);
