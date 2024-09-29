@@ -2,6 +2,7 @@ package backend.photomapper.Controller;
 
 import backend.photomapper.Model.ImageInfo;
 import backend.photomapper.Service.ImageInfoService;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class ImageInfoController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<ImageInfo>> getImageInfoById(@PathVariable("id") String filename) {
+    public ResponseEntity<Optional<ImageInfo>> getImageInfoById(@PathVariable("id") String filename) throws ChangeSetPersister.NotFoundException {
         return new ResponseEntity<>(imageInfoService.getImageInfoById(filename), HttpStatus.OK);
     }
 
