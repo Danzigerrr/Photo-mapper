@@ -1,8 +1,9 @@
-# Backend - **Java Spring Boot
+# Backend - Java Spring Boot Application
 
-Extract metadata from images stored in a selected directory. 
+The backend application shares endpoints which are used to extract metadata from images stored in a selected directory.
+Then the metadata is stored in a database and can be retrieved using other endpoints.
 
-## Metadata extraction
+## Metadata Extraction
 Library used to extract metadata: [metadata-extractor](https://github.com/drewnoakes/metadata-extractor).
 
 Metadata extracted from images (with example data):
@@ -27,7 +28,37 @@ Accepted image formats:
 - jpeg
 - png
 
+## Running the Application
+
+To run the Spring Boot application, follow these steps:
+
+1. Ensure you have [Java 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html) installed on your machine.
+2. Navigate to the `Backend` directory of the project in your terminal:
+   ```bash
+   cd Backend
+   ```
+3. Build the application using Maven:
+   ```bash
+   mvn clean package
+   ```
+4. Run the application:
+   ```bash
+   java -jar target/PhotoMapperApplication.jar
+   ```
+   
+The application will start, and you can access the endpoints for metadata extraction.
+
 ## Tests
 
-[//]: # (todo)
+The backend application includes unit tests to verify the functionality of the controller and service components. To run the tests:
 
+1. Ensure you are in the `Backend` directory:
+   ```bash
+   cd Backend
+   ```
+2. Execute the following command:
+   ```bash
+   mvn test
+   ```
+
+This command will run all the tests defined in the project.
