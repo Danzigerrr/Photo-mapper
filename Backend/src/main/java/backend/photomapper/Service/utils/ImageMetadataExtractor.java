@@ -1,10 +1,11 @@
-package backend.photomapper.imageloader;
+package backend.photomapper.Service.utils;
 
-import backend.photomapper.model.ImageInfo;
+import backend.photomapper.Model.ImageInfo;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+@Component
 public class ImageMetadataExtractor {
 
     private final Set<String> selectedTags;
@@ -75,24 +77,23 @@ public class ImageMetadataExtractor {
                                 }
                             }
 
-                            // Build the ImageInfo object using the extracted metadata
-                            ImageInfo imageInfo = new ImageInfo(
-                                    parseInt(tagMap.get("Image Width")),
-                                    parseInt(tagMap.get("Image Height")),
-                                    tagMap.get("Model"),
-                                    tagMap.get("Date/Time Original"),
-                                    tagMap.get("Time Zone Original"),
-                                    tagMap.get("GPS Latitude Ref"),
-                                    tagMap.get("GPS Latitude"),
-                                    tagMap.get("GPS Longitude Ref"),
-                                    tagMap.get("GPS Longitude"),
-                                    tagMap.get("GPS Altitude Ref"),
-                                    tagMap.get("GPS Altitude"),
-                                    tagMap.get("Detected File Type Name"),
-                                    tagMap.get("Detected File Type Long Name"),
-                                    file.getName(),
-                                    file.length()
-                            );
+                            ImageInfo imageInfo = ImageInfo.builder()
+                                    .imageWidth(Integer.parseInt(tagMap.get("Image Width").replaceAll("[^0-9]", "")))
+                                    .imageHeight(Integer.parseInt(tagMap.get("Image Height").replaceAll("[^0-9]", "")))
+                                    .model(tagMap.get("Model"))
+                                    .dateTimeOriginal(tagMap.get("Date/Time Original"))
+                                    .timeZoneOriginal(tagMap.get("Time Zone Original"))
+                                    .gpsLatitudeRef(tagMap.get("GPS Latitude Ref"))
+                                    .gpsLatitude(tagMap.get("GPS Latitude"))
+                                    .gpsLongitudeRef(tagMap.get("GPS Longitude Ref"))
+                                    .gpsLongitude(tagMap.get("GPS Longitude"))
+                                    .gpsAltitudeRef(tagMap.get("GPS Altitude Ref"))
+                                    .gpsAltitude(tagMap.get("GPS Altitude"))
+                                    .detectedFileTypeName(tagMap.get("Detected File Type Name"))
+                                    .detectedFileTypeLongName(tagMap.get("Detected File Type Long Name"))
+                                    .fileName(file.getName())
+                                    .fileSize(file.length())
+                                    .build();
 
                             // Add the ImageInfo object to the list
                             images.add(imageInfo);
@@ -112,17 +113,5 @@ public class ImageMetadataExtractor {
     private boolean isImageFile(File file) {
         String fileName = file.getName().toLowerCase();
         return acceptedFileTypes.stream().anyMatch(fileName::endsWith);
-    }
-
-    // Helper method to safely parse integers from strings (handles null and empty strings)
-    private int parseInt(String value) {
-        if (value != null && !value.isEmpty()) {
-            try {
-                return Integer.parseInt(value.replaceAll("[^\\d]", ""));
-            } catch (NumberFormatException e) {
-                return 0; // Return 0 if parsing fails
-            }
-        }
-        return 0;
     }
 }
