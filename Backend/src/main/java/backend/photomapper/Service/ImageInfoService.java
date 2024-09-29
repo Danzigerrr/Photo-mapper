@@ -3,6 +3,7 @@ package backend.photomapper.Service;
 import backend.photomapper.Model.ImageInfo;
 import backend.photomapper.Repository.ImageInfoRepository;
 import backend.photomapper.Service.utils.ImageMetadataExtractor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -54,9 +55,11 @@ public class ImageInfoService {
         return imageInfoRepository.findAll();
     }
 
-    public Optional<ImageInfo> getImageInfoById(String filename) {
-        return imageInfoRepository.findById(filename);
+    public Optional<ImageInfo> getImageInfoById(String filename) throws ChangeSetPersister.NotFoundException {
+        return Optional.ofNullable(imageInfoRepository.findById(filename)
+                .orElseThrow(ChangeSetPersister.NotFoundException::new));
     }
+
 
     public void deleteImageInfo(String filename) {
         imageInfoRepository.deleteById(filename);
