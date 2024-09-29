@@ -1,4 +1,4 @@
-name: Build Application and Tests
+name: Run Unit Tests
 
 on:
   push:
@@ -12,11 +12,11 @@ jobs:
     strategy:
       matrix:
         java: [21] 
-    name: Run application and tests on Java ${{ matrix.java }}
+    name: Run unit ests on Java ${{ matrix.java }}
     steps:
-      - uses: actions/checkout@v2  
-      - name: Setup Java
-        uses: actions/setup-java@v2  
+      - uses: actions/checkout@main
+      - name: Setup java
+        uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
 
@@ -30,3 +30,4 @@ jobs:
       - name: Run tests
         run: mvn -f pom.xml test
         working-directory: Backend
+
