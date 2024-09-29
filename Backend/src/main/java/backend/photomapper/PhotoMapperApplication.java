@@ -13,7 +13,7 @@ public class PhotoMapperApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PhotoMapperApplication.class, args);
 
-		extractImageInfoExample();
+//		extractImageInfoExample(); // debug only
 	}
 
 
