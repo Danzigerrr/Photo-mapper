@@ -1,31 +1,32 @@
-name: Node.js CI - build
+name: Run Next.js Build and Tests
 
 on:
   push:
     branches: [ "*" ]
 
 jobs:
-  build:
-
+  build_and_test:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [18.x]
-
+        node: [18.x] # Specify the Node.js version
+    name: Build and test on Node.js ${{ matrix.node }}
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4 # Checkout the repository
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm' # Cache npm dependencies
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+        working-directory: Frontend/frontend # Specify the correct directory
 
-    - name: Install dependencies
-      run: npm ci
-      working-directory: Frontend/frontend
+      - name: Build the application
+        run: npm run build --if-present
+        working-directory: Frontend/frontend # Specify the correct directory
 
-    - name: Build the application
-      run: npm run build --if-present
-      working-directory: Frontend/frontend
+      - name: Run tests
+        run: npm run test # Adjust this to your test command if different
+        working-directory: Frontend/frontend # Specify the correct directory
