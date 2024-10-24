@@ -42,8 +42,6 @@ button:hover {
     background-color: #005bb5;
 }
 
-@import "~leaflet/dist/leaflet.css";
-
 .leaflet-container {
     height: 100%;
     width: 100%;

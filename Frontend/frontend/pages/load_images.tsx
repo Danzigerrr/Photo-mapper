@@ -1,5 +1,8 @@
+// @ts-ignore
 import { useState } from 'react';
 import axios from 'axios';
+// @ts-ignore
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, AwaitedReactNode, Key } from 'react';
 
 export interface ImageInfo {
     imageWidth: number;
@@ -19,10 +22,12 @@ export interface ImageInfo {
     fileSize: number;
 }
 
-const LoadImages = ({ onLoadImages }: { onLoadImages: (infos: ImageInfo[]) => void }) => {
+const LoadImages = ({onLoadImages}: { onLoadImages: (infos: ImageInfo[]) => void }) => {
     const [directoryPath, setDirectoryPath] = useState<string>('');
     const [imageInfos, setImageInfos] = useState<ImageInfo[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const imagesPerPage = 3; // Number of images per page
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDirectoryPath(event.target.value);
@@ -32,7 +37,7 @@ const LoadImages = ({ onLoadImages }: { onLoadImages: (infos: ImageInfo[]) => vo
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:8081/api/loadimages/directory', null, {
-                params: { directoryPath },
+                params: {directoryPath},
             });
             setImageInfos(response.data);
             setError(null);
@@ -43,6 +48,13 @@ const LoadImages = ({ onLoadImages }: { onLoadImages: (infos: ImageInfo[]) => vo
         }
     };
 
+    // Calculate total pages
+    const totalPages = Math.ceil(imageInfos.length / imagesPerPage);
+
+    // Get current images
+    const currentImages = imageInfos.slice((currentPage - 1) * imagesPerPage, currentPage * imagesPerPage);
+
+    // @ts-ignore
     return (
         <div>
             <h1>Load Images Metadata</h1>
@@ -58,13 +70,38 @@ const LoadImages = ({ onLoadImages }: { onLoadImages: (infos: ImageInfo[]) => vo
                 </label>
                 <button type="submit">Load Metadata</button>
             </form>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p style={{color: 'red'}}>{error}</p>}
             <div>
                 {imageInfos.length > 0 && (
                     <div>
                         <h2>Image Metadata</h2>
+                        {/* Pagination Controls */}
+                        <div>
+                            <button
+                                onClick={() => setCurrentPage((prev: number) => Math.max(prev - 1, 1))}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
+                            <span> Page {currentPage} of {totalPages} </span>
+                            <button
+                                onClick={() => setCurrentPage((prev: number) => Math.min(prev + 1, totalPages))}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
+                        </div>
                         <ul>
-                            {imageInfos.map((info, index) => (
+                            {currentImages.map((info: {
+                                fileName: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined;
+                                imageWidth: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined;
+                                imageHeight: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined;
+                                model: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined;
+                                dateTimeOriginal: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined;
+                                gpsLatitude: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined;
+                                gpsLongitude: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined;
+                                fileSize: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined;
+                            }, index: Key | null | undefined) => (
                                 <li key={index}>
                                     <p><strong>File Name:</strong> {info.fileName}</p>
                                     <p><strong>Image Width:</strong> {info.imageWidth} px</p>
@@ -78,6 +115,7 @@ const LoadImages = ({ onLoadImages }: { onLoadImages: (infos: ImageInfo[]) => vo
                                 </li>
                             ))}
                         </ul>
+
                     </div>
                 )}
             </div>

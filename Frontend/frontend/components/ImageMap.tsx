@@ -1,8 +1,11 @@
-// pages/ImageMap.tsx
-import React from 'react';
+// components/ImageMap.tsx
+
+import dynamic from 'next/dynamic';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+// @ts-ignore
 import L from 'leaflet';
+// @ts-ignore
 import { useEffect } from 'react';
 
 interface ImageInfo {
@@ -33,10 +36,13 @@ const SetMapView = ({ imageInfos }: { imageInfos: ImageInfo[] }) => {
     return null;
 };
 
+// Dynamically import the MapContainer to disable SSR
+const Map = dynamic(() => Promise.resolve(MapContainer), { ssr: false });
+
 const ImageMap: React.FC<ImageMapProps> = ({ imageInfos }) => {
     return (
         <div style={{ height: '500px' }}>
-            <MapContainer center={[51.505, -0.09]} zoom={2} style={{ height: '100%', width: '100%' }}>
+            <Map center={[51.505, -0.09]} zoom={2} style={{ height: '100%', width: '100%' }}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -63,7 +69,7 @@ const ImageMap: React.FC<ImageMapProps> = ({ imageInfos }) => {
                         </Marker>
                     );
                 })}
-            </MapContainer>
+            </Map>
         </div>
     );
 };

@@ -2,9 +2,10 @@ import Head from 'next/head';
 import LoadImages, { ImageInfo } from "@/pages/load_images"; // Import ImageInfo here
 // import '../styles/globals.css';
 import dynamic from 'next/dynamic';
+// @ts-ignore
 import { useState } from 'react';
 
-const DynamicImageMap = dynamic(() => import('./ImageMap'), { ssr: false });
+const DynamicImageMap = dynamic(() => import('../components/ImageMap'), { ssr: false });
 
 export default function Home() {
     const [imageInfos, setImageInfos] = useState<ImageInfo[]>([]);

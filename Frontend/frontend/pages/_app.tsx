@@ -1,8 +1,9 @@
 // pages/_app.tsx
+import 'leaflet/dist/leaflet.css'; // Ensure Leaflet CSS is imported here
 import '../styles/globals.css';
-import 'leaflet/dist/leaflet.css'; // Correct way to import Leaflet CSS
+import {AppProps} from "next/dist/pages/_app";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
     return <Component {...pageProps} />;
 }
 
