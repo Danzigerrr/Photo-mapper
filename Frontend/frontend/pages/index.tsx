@@ -1,8 +1,18 @@
 import Head from 'next/head';
-import LoadImages from "@/pages/load_images";
-import '../styles/globals.css';
+import LoadImages, { ImageInfo } from "@/pages/load_images"; // Import ImageInfo here
+// import '../styles/globals.css';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
+
+const DynamicImageMap = dynamic(() => import('./ImageMap'), { ssr: false });
 
 export default function Home() {
+    const [imageInfos, setImageInfos] = useState<ImageInfo[]>([]);
+
+    const handleLoadImages = (infos: ImageInfo[]) => {
+        setImageInfos(infos);
+    };
+
     return (
         <div>
             <Head>
@@ -13,7 +23,8 @@ export default function Home() {
 
             <main>
                 <h1>Welcome to the Image Metadata Loader</h1>
-                <LoadImages />
+                <LoadImages onLoadImages={handleLoadImages} />
+                {imageInfos.length > 0 && <DynamicImageMap imageInfos={imageInfos} />}
             </main>
 
             <footer>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-interface ImageInfo {
+export interface ImageInfo {
     imageWidth: number;
     imageHeight: number;
     model: string;
@@ -19,7 +19,7 @@ interface ImageInfo {
     fileSize: number;
 }
 
-const LoadImages = () => {
+const LoadImages = ({ onLoadImages }: { onLoadImages: (infos: ImageInfo[]) => void }) => {
     const [directoryPath, setDirectoryPath] = useState<string>('');
     const [imageInfos, setImageInfos] = useState<ImageInfo[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -36,6 +36,7 @@ const LoadImages = () => {
             });
             setImageInfos(response.data);
             setError(null);
+            onLoadImages(response.data); // Call the passed function
         } catch (err) {
             console.error(err);
             setError('Failed to load images metadata. Please check the directory path and try again.');
