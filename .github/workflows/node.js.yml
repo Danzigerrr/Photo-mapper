@@ -12,7 +12,8 @@ jobs:
         node: [18.x] # Specify the Node.js version
     name: Build and test on Node.js ${{ matrix.node }}
     defaults:
-      working-directory: Frontend/frontend # Set the default working directory
+      run:
+        working-directory: Frontend/frontend # Set the default working directory
 
     steps:
       - uses: actions/checkout@v4 # Checkout the repository
