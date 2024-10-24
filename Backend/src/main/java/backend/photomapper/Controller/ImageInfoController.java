@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/loadimages")
+@CrossOrigin(origins = "http://localhost:3000")  // Allow requests from Frontend
 public class ImageInfoController {
 
     private final ImageInfoService imageInfoService;
