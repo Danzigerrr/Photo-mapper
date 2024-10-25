@@ -21,6 +21,10 @@ PhotoMapper is a full-stack application that extracts and visualizes metadata fr
 - **Java 21** for the backend
 - **Node.js (20.x)** and **npm** for the frontend
 
+## Application functions
+
+![img.png](ReadmeImages/application_screenshot.png)
+
 ## Running the Application
 The application requires both the backend and frontend to be running.
 

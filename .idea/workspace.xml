@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3576e59a-196d-47e9-8d6a-6d51cafb0f79" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Photo-mapper.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jpa.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,20 +36,22 @@
   "keyToString": {
     "Application.PhotoMapperApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.PhotoMapperApplication.executor": "Run",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Informatyka/Rozne/Photo-mapper/Backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.ImageInfoControllerTest">
+  <component name="RunManager" selected="Application.PhotoMapperApplication">
     <configuration name="ImageMetadataExtractor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="backend.photomapper.imageloader.ImageMetadataExtractor" />
       <module name="Photo-mapper" />
@@ -102,7 +96,7 @@
       </method>
     </configuration>
     <configuration name="PhotoMapperApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-22" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <module name="Photo-mapper" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="backend.photomapper.PhotoMapperApplication" />
@@ -124,13 +118,20 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.ImageMetadataExtractor" />
+      <item itemvalue="Application.PhotoMapperApplication" />
+      <item itemvalue="Docker.Backend/Dockerfile" />
+      <item itemvalue="JUnit.ImageInfoControllerTest" />
+      <item itemvalue="Spring Boot.PhotoMapperApplication" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PhotoMapperApplication" />
         <item itemvalue="Spring Boot.PhotoMapperApplication" />
         <item itemvalue="JUnit.ImageInfoControllerTest" />
         <item itemvalue="Docker.Backend/Dockerfile" />
         <item itemvalue="Application.ImageMetadataExtractor" />
-        <item itemvalue="Application.PhotoMapperApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -145,7 +146,9 @@
       <workItem from="1729848619760" duration="189000" />
       <workItem from="1729848825681" duration="1366000" />
       <workItem from="1729850202705" duration="432000" />
-      <workItem from="1729850656139" duration="29000" />
+      <workItem from="1729850656139" duration="746000" />
+      <workItem from="1729851409125" duration="114000" />
+      <workItem from="1729851542441" duration="160000" />
     </task>
     <servers />
   </component>
