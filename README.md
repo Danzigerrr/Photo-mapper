@@ -1,8 +1,17 @@
 # PhotoMapper - Full Stack Application
-![Build Status](https://github.com/username/PhotoMapper/workflows/Build%20Status/badge.svg)  
-![Test Status](https://github.com/username/PhotoMapper/workflows/Test%20Status/badge.svg)
 
 PhotoMapper is a full-stack application that extracts and visualizes metadata from selected images. The backend processes the images and stores metadata, while the frontend provides an interactive map where users can view image information based on their location.
+
+## Backend - Java Spring Boot Application
+![Build Status](https://github.com/Danzigerrr/Photo-mapper/actions/workflows/SpringBootRunUnitTests.yml/badge.svg)  
+![Java Version](https://img.shields.io/badge/Java-21-blue)  
+![Maven](https://img.shields.io/badge/Maven-3.8.1-red)  
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.1.4-green)
+
+## Frontend - Next.js Application
+![Build Status](https://github.com/Danzigerrr/Photo-mapper/actions/workflows/node.js.yml/badge.svg)  
+![Node Version](https://img.shields.io/badge/Node-20.x-brightgreen)  
+![Next.js Version](https://img.shields.io/badge/Next.js-13.x-black)
 
 ## Project Structure
 - **Frontend:** A Next.js application to display image metadata on an interactive map.

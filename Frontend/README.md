@@ -1,6 +1,7 @@
 # Frontend - Next.js Application
-![Build Status](https://github.com/username/PhotoMapper/workflows/Frontend%20Build%20Status/badge.svg)  
-![Test Status](https://github.com/username/PhotoMapper/workflows/Frontend%20Test%20Status/badge.svg)
+![Build Status](https://github.com/Danzigerrr/Photo-mapper/actions/workflows/node.js.yml/badge.svg)  
+![Node Version](https://img.shields.io/badge/Node-20.x-brightgreen)  
+![Next.js Version](https://img.shields.io/badge/Next.js-13.x-black)
 
 The frontend application of PhotoMapper provides an interactive map that displays metadata of images uploaded via the backend service.
 

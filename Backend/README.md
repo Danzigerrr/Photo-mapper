@@ -1,8 +1,10 @@
 ### **Backend README**
 
 # Backend - Java Spring Boot Application
-![Build Status](https://github.com/username/PhotoMapper/workflows/Backend%20Build%20Status/badge.svg)  
-![Test Status](https://github.com/username/PhotoMapper/workflows/Backend%20Test%20Status/badge.svg)
+![Build Status](https://github.com/Danzigerrr/Photo-mapper/actions/workflows/SpringBootRunUnitTests.yml/badge.svg)  
+![Java Version](https://img.shields.io/badge/Java-21-blue)  
+![Maven](https://img.shields.io/badge/Maven-3.8.1-red)  
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.1.4-green)
 
 The backend application exposes endpoints to extract and store metadata from selected images. The extracted data can be accessed via REST API endpoints.
 
