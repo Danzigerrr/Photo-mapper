@@ -21,6 +21,12 @@ PhotoMapper is a full-stack application that extracts and visualizes metadata fr
 - **Java 21** for the backend
 - **Node.js (20.x)** and **npm** for the frontend
 
+## Application Functions
+
+PhotoMapper is a full-stack application designed to extract and display metadata from images in a selected directory. Users can view an interactive map with location pins based on image GPS metadata and inspect details about each image. The backend, built with Java Spring Boot, handles metadata extraction, processing, and storage, while the frontend, powered by Next.js, renders the interactive interface for viewing images and map locations.
+
+![img.png](ReadmeImages/application_screenshot.png)
+
 ## Running the Application
 The application requires both the backend and frontend to be running.
 
